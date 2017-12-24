@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Daily Theorem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Daily Theorem">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Daily Theorem">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Daily Theorem">
+  
+    <link rel="alternate" href="/atom.xml" title="Daily Theorem" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Daily Theorem</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每日演算法相關證明</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-LIS-on-Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/19/LIS-on-Tree/" class="article-date">
+  <time datetime="2017-12-19T00:39:37.000Z" itemprop="datePublished">2017-12-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/19/LIS-on-Tree/">Makespan 問題的 Greedy 近似解法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Makespan-問題"><a href="#Makespan-問題" class="headerlink" title="Makespan 問題"></a>Makespan 問題</h2><p>有 $m$ 台相同的機器以及 $n$ 件工作，每一件工作只能挑選一台機器執行，不能切開。<br>第 $i$ 件工作執行要花 $p_i$ 時間。求一種工作排程方案，使得最慢結束的那台機器最早結束。</p>
+<h2 id="一種-Greedy-演算法"><a href="#一種-Greedy-演算法" class="headerlink" title="一種 Greedy 演算法"></a>一種 Greedy 演算法</h2><p>首先我們可以把所有工作依照執行時間由大到小排序，因此不妨假設 $p_1 \ge p_2 \ge \ldots \ge p_n$。<br>接下來，對於每一個工作 $p_i$，我們把它指派到<strong>當前工作總量最少的那台機器</strong>。</p>
+<h3 id="定理一"><a href="#定理一" class="headerlink" title="定理一"></a>定理一</h3><p>上述的 Greedy 演算法是 2-approximation。</p>
+<h3 id="定理一的證明"><a href="#定理一的證明" class="headerlink" title="定理一的證明"></a>定理一的證明</h3><p>老樣子，我們令 $ALG$ 表示上述貪婪法算出來的最慢那台機器需要的計算時間、令 $OPT$ 表示最佳解。於是上面定理要說的是 $ALG \le 2\cdot OPT$。</p>
+<p>首先，我們先不妨假設 $p_n$ 是被指派到工作量最大的那台機器（如果不然，我們就把最小的工作拿掉，不影響近似程度）。接下來，考慮 $p_n$ 被放進去的當下，根據 greedy 演算法的規則，我們知道 $ALG \le (p_1+p_2+\cdots+p_{n-1}) / m + p_n$。</p>
+<p>但顯然 $OPT \ge (p_1+p_2+\cdots+p_n)/m$，因為總會有一台機器的工作總時間達到平均值。此外，顯然 $OPT$ 要能容得下一整個最久工作的時間，於是 $OPT\ge p_1\ge p_n$。因此，我們可以得到<br>$$<br>\begin{equation}<br>ALG \le OPT + p_n \le 2\cdot OPT \label{eq1}<br>\end{equation}<br>$$</p>
+<h3 id="定理二"><a href="#定理二" class="headerlink" title="定理二"></a>定理二</h3><p>上述的 Greedy 演算法是 $\frac{3}{2}$-approximation。</p>
+<h3 id="定理二的證明"><a href="#定理二的證明" class="headerlink" title="定理二的證明"></a>定理二的證明</h3><p>我們想證明的其實是：若 $ALG\neq OPT$，那麼 $p_n \le \frac{1}{2} OPT$。證明如下：如果有某一台機器被分配至少兩件工作 $p_i, p_j$，那麼由於排序的關係 $OPT \ge p_i+p_j \ge 2p_n$，得證。否則的話，每一台機器都只被分配到一個工作，顯然這時候 $OPT=p_1=ALG$。<br>將結果代入 $\eqref{eq1}$ 以後，就得證了。</p>
+<h3 id="定理三"><a href="#定理三" class="headerlink" title="定理三"></a>定理三</h3><p>上述的 Greedy 演算法是 $\frac{4}{3}$-approximation。</p>
+<h3 id="定理三的證明"><a href="#定理三的證明" class="headerlink" title="定理三的證明"></a>定理三的證明</h3><p>我們想證明的其實是：若 $p_n &gt; \frac13 OPT$，那麼 $ALG = OPT$。（另一種 case 可以由 $\eqref{eq1}$ 直接得證。）證明如下：當 $p_n &gt; \frac13 OPT$ 的時候，顯然在最佳解當中，所有機器至多只有 2 件工作被執行（如果有某台機器執行了 3 件工作，那麼 $OPT \ge 3 p_n$ 與假設矛盾）。當最佳解中，所有機器至多只有 2 件工作被執行時，我們要證明的是 Greedy 解也會找到 $OPT$。</p>
+<p>假定 $p_n &gt; \frac13 OPT$，我們仍可以不妨假設 $p_n$ 位於總工時最長的唯一一台機器上。在這個假設之下，我們得知在 Greedy 演算法的過程中，一開始會將 $p_1$ 至 $p_m$ 依序安排至每一台不同的機器上。假設第 $i$ 件工作被安排到第 $i$ 台機器上。接下來，我們證明：對於 $i=1, 2, \ldots, n-m$，第 $m+i$ 件工作會被指派到第 $m+1-i$ 台機器上。若不然，某個 $p_x$ 會被放到某一台帶有兩件工作的機器上，此時便有 $p_n \le p_x \le \frac13 OPT$ 與假設矛盾。因此，$ALG=p_n+p_{m-n+1}$。</p>
+<p>接下來證明在上述假設之下 $OPT=p_n+p_{m-n+1}$：假設 $OPT=p_n+p_i$，而且 $i &gt; m-n+1$，根據鴿籠原理必定有 (1) 某三個工作被塞在編號 $&gt;m-n+1$ 的機器理，或是 (2) 至少在 $1, 2, \ldots, m-n$ 其中一台機器上有兩件工作。若 (1) 發生直接與假設矛盾，若 (2) 發生，則該台機器上的兩件工作總時間必定大於或等於 $p_n+p_i$，也與假設矛盾。因此得證。</p>
+<h3 id="定理四"><a href="#定理四" class="headerlink" title="定理四"></a>定理四</h3><p>$\frac43$-approxmation 是 Greedy 演算法最緊緻的上界：存在一系列測試資料使得 Greedy 演算法的 $\frac{ALG}{OPT}\to \frac43$。</p>
+<h3 id="定理四的證明"><a href="#定理四的證明" class="headerlink" title="定理四的證明"></a>定理四的證明</h3><p>令 $n=2m+1$，然後有 3 個長度是 $m$ 的工作、然後 $m+1, m+2, \ldots, 2m-1$ 長度的各兩個。在 Greedy 演算法的作用下，在放完 $2m$ 個工作以後，每一台機器的工作量都剛好會是 $3m-1$。因此加上最後一件工作時，工時最長的那台機器，工作量變成 $4m-1$，因此 $ALG=4m-1$。</p>
+<p>但是，我們可以利用 $m-1$ 台機器，將所有 $2m-2$ 件各兩個的工作放入使得每一台機器工作量恰好都是 $3m$，再將 $3$ 個長度為 $m$ 的工作放到最後一台機器中。因此有 $OPT=3m$。因此當 $m\to \infty$ 的時候 $\frac{ALG}{OPT} \to \frac43$。</p>
+<h3 id="延伸思考"><a href="#延伸思考" class="headerlink" title="延伸思考"></a>延伸思考</h3><ul>
+<li>當 $m$ 也變成一個固定的 parameter，而將 $n$ 拉到很大的時候，似乎會有更好的上界。</li>
+</ul>
+<h3 id="延伸參考"><a href="#延伸參考" class="headerlink" title="延伸參考"></a>延伸參考</h3><ul>
+<li>$\sf{Makespan}\in \textrm{PTAS}$</li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>[1] <a href="http://theory.epfl.ch/osven/courses/Approx13/Notes/lecture2.pdf" target="_blank" rel="noopener">http://theory.epfl.ch/osven/courses/Approx13/Notes/lecture2.pdf</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/19/LIS-on-Tree/" data-id="cjbkmq9150000pkdo84czrq6k" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/15/hello-world/" class="article-date">
+  <time datetime="2017-12-15T01:09:45.868Z" itemprop="datePublished">2017-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/15/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/15/hello-world/" data-id="cjbkmq9190001pkdo5dtc0aoo" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/19/LIS-on-Tree/">Makespan 問題的 Greedy 近似解法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 tmt514<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
