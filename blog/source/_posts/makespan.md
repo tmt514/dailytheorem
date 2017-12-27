@@ -2,6 +2,9 @@
 title: Makespan 問題的 Greedy 近似解法
 date: 2017-12-19 08:39:37
 tags:
+    - 'Greedy Algorithms'
+    - 'Approximation Algorithms'
+mathjax: true
 ---
 
 ## Makespan 問題
