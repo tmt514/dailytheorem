@@ -8,12 +8,14 @@ subtitle: 每日演算法相關證明
 description:
 author: tmt514
 language:
+  - 'zh-TW'
+  - 'en'
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
+url: http://tmt514.github.io
+root: /dailytheorem
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -72,7 +74,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+# theme: landscape
+theme: maupassant
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -85,7 +88,7 @@ deploy:
 math:
   engine: 'mathjax'
   mathjax:
-    src: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" #src
+    src: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
     config:
       tex2jax:
         inlineMath: [ ['$','$'], ["\\(","\\)"] ]
@@ -98,3 +101,5 @@ math:
           OPT: "\\textrm{OPT}"
           ALG: "\\textrm{ALG}"
       #config
+
+mathjax: true
